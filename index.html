@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Rose Day ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+  color: #fff;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body.night {
+  background: linear-gradient(135deg, #140016, #2b001e);
+}
+
+/* Night toggle */
+.toggle {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: #ff4d6d;
+  font-size: 13px;
+  z-index: 1000;
+}
+
+/* Slider */
+.container {
+  display: flex;
+  width: 1000vw;
+  height: 100vh;
+  transition: transform 0.45s ease-out;
+}
+
+/* Pages */
+section {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+}
+
+/* Card */
+.card {
+  width: 100%;
+  max-width: 420px;
+  background: rgba(0,0,0,0.55);
+  padding: 26px 24px;
+  border-radius: 26px;
+  text-align: center;
+  box-shadow: 0 16px 35px rgba(0,0,0,0.4);
+  animation: fadeUp 0.7s ease;
+}
+
+/* Text */
+h1 {
+  font-size: 1.55rem;
+  margin-bottom: 12px;
+  color: #ffd6e8;
+}
+
+p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #ffe9f2;
+}
+
+/* Controls */
+.controls {
+  position: fixed;
+  bottom: 14px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  z-index: 1000;
+}
+
+button {
+  padding: 8px 18px;
+  border-radius: 22px;
+  border: none;
+  background: #ff4d6d;
+  color: white;
+  font-size: 14px;
+}
+
+button:active {
+  transform: scale(0.94);
+}
+
+/* Falling roses */
+.rose {
+  position: fixed;
+  top: -30px;
+  font-size: 18px;
+  animation: fall linear infinite;
+  opacity: 0.85;
+  z-index: 0;
+}
+
+@keyframes fall {
+  to { transform: translateY(110vh) rotate(360deg); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="toggle" onclick="toggleNight()">🌙</div>
+
+<div class="container" id="container">
+
+<section><div class="card">
+<h1>🌹 Happy Rose Day My Girl</h1>
+<p>Today is Rose Day, but every day feels like a rose because of you. You walked into my life and everything became softer and warmer.</p>
+</div></section>
+
+<section><div class="card">
+<h1>🌸 You Are My Favorite Feeling</h1>
+<p>You are my peace, my comfort, and my smile. Loving you feels natural, effortless, like breathing.</p>
+</div></section>
+
+<section><div class="card">
+<h1>🌹 A Rose for Every Smile</h1>
+<p>If I could give you a rose for every smile, the whole world would turn into a garden made just for you.</p>
+</div></section>
+
+<section><div class="card">
+<h1>🌸 My Safe Place</h1>
+<p>With you, I feel safe to be myself. You understand me without words, and that means everything.</p>
+</div></section>
+
+<section><div class="card">
+<h1>🌹 My Wife in My Heart</h1>
+<p>I call you my wife because my heart already chose you as home.</p>
+</div></section>
+
+<section><div class="card">
+<h1>🌸 Through Every Season</h1>
+<p>No matter the season or situation, I want to walk beside you and hold your hand.</p>
+</div></section>
+
+<section><div class="card">
+<h1>🌹 Thank You for Being You</h1>
+<p>Thank you for your kindness, your patience, and for choosing me.</p>
+</div></section>
+
+<section><div class="card">
+<h1>🌸 A Future With You</h1>
+<p>Every dream I see has you in it. Every tomorrow feels complete.</p>
+</div></section>
+
+<section><div class="card">
+<h1>🌹 Forever Kind of Love</h1>
+<p>This is not just a Rose Day wish. This is a forever kind of feeling.</p>
+</div></section>
+
+<section><div class="card">
+<h1>🌸 Always Yours</h1>
+<p>You are my today, my tomorrow, and my forever. Always.</p>
+</div></section>
+
+</div>
+
+<div class="controls">
+<button onclick="prev()">⬅</button>
+<button onclick="next()">➡</button>
+</div>
+
+<script>
+let index = 0;
+const total = 10;
+const container = document.getElementById("container");
+
+function update() {
+  container.style.transform = `translateX(-${index * 100}vw)`;
+}
+
+function next() {
+  if (index < total - 1) {
+    index++;
+    update();
+  }
+}
+
+function prev() {
+  if (index > 0) {
+    index--;
+    update();
+  }
+}
+
+/* Swipe */
+let startX = 0;
+document.addEventListener("touchstart", e => {
+  startX = e.touches[0].clientX;
+});
+
+document.addEventListener("touchend", e => {
+  const endX = e.changedTouches[0].clientX;
+  if (startX - endX > 50) next();
+  if (endX - startX > 50) prev();
+});
+
+/* Night mode */
+function toggleNight() {
+  document.body.classList.toggle("night");
+}
+
+/* Falling roses */
+const emojis = ["🌹","🌸","❤️"];
+for (let i = 0; i < 22; i++) {
+  const r = document.createElement("div");
+  r.className = "rose";
+  r.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+  r.style.left = Math.random() * 100 + "vw";
+  r.style.animationDuration = 7 + Math.random() * 6 + "s";
+  r.style.fontSize = 16 + Math.random() * 12 + "px";
+  document.body.appendChild(r);
+}
+</script>
+
+</body>
+</html>
